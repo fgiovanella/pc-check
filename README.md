@@ -3,10 +3,6 @@
 Este é um projeto desenvolvido para a disciplina de Sistemas Operacionais. Trata-se de um monitor de sistema gráfico, inspirado no Gerenciador de Tarefas do Windows, construído do zero em C++ com foco em eficiência e na aplicação direta de conceitos do SO.
 
 O programa monitora em tempo real o uso de CPU e RAM, além de listar todos os processos e threads em execução no sistema.
-
-![Screenshot do PcCheck em execução](DEU_CERTO.png)
-*(Sugestão: Tire um print da sua aplicação funcionando, salve o arquivo como `DEU_CERTO.png` na pasta raiz do projeto para esta imagem aparecer)*
-
 ---
 
 ## ✨ Funcionalidades Principais
