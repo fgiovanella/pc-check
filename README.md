@@ -23,22 +23,6 @@ O programa monitora em tempo real o uso de CPU e RAM, além de listar todos os p
 
 ---
 
-## 🛠️ O Desafio de Eficiência (O "Buraco Mais Embaixo")
-
-Um dos principais desafios deste projeto era o risco de "saturar o processador". Um monitor de sistema ingênuo, que coleta todos esses dados 60 vezes por segundo (junto com a UI), se tornaria o programa mais pesado da máquina.
-
-Este projeto resolveu esse problema de forma robusta, aplicando conceitos centrais de concorrência:
-
-1. **Arquitetura Multi-Thread:** O programa é dividido em duas threads principais:
-    * **Thread de UI (Rápida):** Responsável apenas por desenhar a interface (ImGui). Ela é "burra" e não faz trabalho pesado.
-    * **Thread de Coleta (Lenta):** Roda em segundo plano (`std::thread`), executa todo o trabalho pesado (cálculos de delta de CPU, listagem de processos) e, em seguida, **"dorme" por 1 segundo** (`std::this_thread::sleep_for`).
-2. **Sincronização Segura:** Um `std::mutex` é usado para proteger os dados. A thread de coleta trava o mutex, atualiza os dados, e o libera. A thread da UI trava o mutex brevemente apenas para ler esses dados, garantindo que não haja conflitos.
-3. **Coleta Sob Demanda:** Dados pesados (como I/O de disco e detalhes de threads) não são coletados no loop principal. Eles são buscados *apenas* quando o usuário clica em um processo específico, garantindo performance máxima.
-4. **Otimização de Cache:** `std::map` são usados para guardar os dados de CPU "antigos" de cada processo e thread, permitindo o cálculo do "delta" de uso.
-5. **Otimização de Memória:** O loop da UI não cria novas cópias da lista de processos 60x por segundo. Ele reutiliza a mesma estrutura de dados (`SystemInfo& outInfo`), evitando a "agitação de memória" que causava o alto consumo de RAM.
-
----
-
 ## 🚀 Conceitos de SO Aplicados
 
 * **Gerenciamento de Processos:** `EnumProcesses`, `OpenProcess`, `GetModuleBaseName`, `TerminateProcess`.
