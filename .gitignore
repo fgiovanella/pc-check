@@ -1,0 +1,15 @@
+/out/
+/build/
+/.vs/
+*.sln
+*.vcxproj
+CMakeSettings.json
+
+# Arquivos do Visual Studio
+/.vs/
+*.sln
+*.vcxproj
+CMakeSettings.json
+
+# Arquivos do Windows
+*.user
